@@ -1,5 +1,6 @@
 package com.ty.service;
 
+import com.ty.model.AdjacencyType;
 import com.ty.model.Rectangle;
 
 public class RectangleService {
@@ -16,5 +17,9 @@ public class RectangleService {
                 outer.getBottom() <= inner.getBottom() &&
                 outer.getRight() >= inner.getRight() &&
                 outer.getTop() >= inner.getTop();
+    }
+
+    public AdjacencyType getAdjacencyType(Rectangle r1, Rectangle r2) {
+        // TODO
     }
 }
