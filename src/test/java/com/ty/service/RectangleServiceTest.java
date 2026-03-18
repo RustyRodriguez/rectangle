@@ -3,6 +3,7 @@ package com.ty.service;
 import com.ty.model.AdjacencyType;
 import com.ty.model.Point;
 import com.ty.model.Rectangle;
+import com.ty.result.IntersectionResult;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,5 +82,31 @@ class RectangleServiceTest {
         Rectangle r2 = new Rectangle(new Point(3, 4), new Point(5, 8));
 
         assertEquals(AdjacencyType.PARTIAL, rectangleService.getAdjacencyType(r1, r2));
+    }
+
+    @Test
+    void shouldReturnNoIntersectionWhenRectanglesDoNotOverlap() {
+        Rectangle r1 = new Rectangle(new Point(1, 1), new Point(3, 3));
+        Rectangle r2 = new Rectangle(new Point(3, 3), new Point(8, 8));
+
+        IntersectionResult result = rectangleService.computeIntersection(r1, r2);
+
+        assertFalse(result.hasIntersection());
+        assertTrue(result.points().isEmpty());
+    }
+
+    @Test
+    void shouldReturnIntersectionPointsWhenRectanglesOverlap() {
+        Rectangle r1 = new Rectangle(new Point(1, 1), new Point(4, 4));
+        Rectangle r2 = new Rectangle(new Point(2, 2), new Point(6, 6));
+
+        IntersectionResult result = rectangleService.computeIntersection(r1, r2);
+
+        assertTrue(result.hasIntersection());
+        assertEquals(4, result.points().size());
+        assertTrue(result.points().contains(new Point(2, 2)));
+        assertTrue(result.points().contains(new Point(2, 4)));
+        assertTrue(result.points().contains(new Point(4, 2)));
+        assertTrue(result.points().contains(new Point(4, 4)));
     }
 }

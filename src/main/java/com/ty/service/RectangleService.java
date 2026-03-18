@@ -2,6 +2,7 @@ package com.ty.service;
 
 import com.ty.model.AdjacencyType;
 import com.ty.model.Rectangle;
+import com.ty.result.IntersectionResult;
 
 import static com.ty.model.AdjacencyType.*;
 
@@ -68,5 +69,9 @@ public class RectangleService {
         }
 
         return NONE;
+    }
+
+    public IntersectionResult computeIntersection(Rectangle r1, Rectangle r2) {
+        return null;
     }
 }
