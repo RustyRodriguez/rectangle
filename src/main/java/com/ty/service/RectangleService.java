@@ -17,5 +17,4 @@ public class RectangleService {
                 outer.getRight() >= inner.getRight() &&
                 outer.getTop() >= inner.getTop();
     }
-
 }
