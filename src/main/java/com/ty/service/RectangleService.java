@@ -3,6 +3,8 @@ package com.ty.service;
 import com.ty.model.AdjacencyType;
 import com.ty.model.Rectangle;
 
+import static com.ty.model.AdjacencyType.*;
+
 public class RectangleService {
 
     /**
@@ -20,6 +22,51 @@ public class RectangleService {
     }
 
     public AdjacencyType getAdjacencyType(Rectangle r1, Rectangle r2) {
-        // TODO
+        boolean vertical = r1.getRight() == r2.getLeft() || r1.getLeft() == r2.getRight();
+        boolean horizontal = r1.getTop() == r2.getBottom() || r1.getBottom() == r2.getTop();
+
+        if (vertical) {
+            int overlapStart = Math.max(r1.getBottom(), r2.getBottom());
+            int overlapEnd = Math.min(r1.getTop(), r2.getTop());
+
+            if (overlapStart >= overlapEnd) {
+                return NONE;
+            }
+
+            int r1Height = r1.getTop() - r1.getBottom();
+            int r2Height = r2.getTop() - r2.getBottom();
+            int overlap = overlapEnd - overlapStart;
+
+            if (r1Height == overlap && r2Height == overlap) {
+                return PROPER;
+            } else if (r1Height == overlap || r2Height == overlap) {
+                return SUBLINE;
+            } else {
+                return PARTIAL;
+            }
+        }
+
+        if (horizontal) {
+            int overlapStart = Math.max(r1.getLeft(), r2.getLeft());
+            int overlapEnd = Math.min(r1.getRight(), r2.getRight());
+
+            if (overlapStart >= overlapEnd) {
+                return NONE;
+            }
+
+            int r1Width = r1.getRight() - r1.getLeft();
+            int r2Width = r2.getRight() - r2.getLeft();
+            int overlap = overlapEnd - overlapStart;
+
+            if (r1Width == overlap && r2Width == overlap) {
+                return PROPER;
+            } else if (r1Width == overlap || r2Width == overlap) {
+                return SUBLINE;
+            } else {
+                return PARTIAL;
+            }
+        }
+
+        return NONE;
     }
 }
