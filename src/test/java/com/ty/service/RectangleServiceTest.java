@@ -57,7 +57,7 @@ class RectangleServiceTest {
         Rectangle r1 = new Rectangle(new Point(1, 1), new Point(3, 4));
         Rectangle r2 = new Rectangle(new Point(5, 1), new Point(7, 4));
 
-        assertEquals(AdjacencyType.NONE, rectangleService.getAdjacencyType(r1, r2));
+        assertEquals(AdjacencyType.NONE, rectangleService.classifyAdjacency(r1, r2));
     }
 
     @Test
@@ -65,7 +65,7 @@ class RectangleServiceTest {
         Rectangle r1 = new Rectangle(new Point(1, 1), new Point(3, 4));
         Rectangle r2 = new Rectangle(new Point(3, 1), new Point(5, 4));
 
-        assertEquals(AdjacencyType.PROPER, rectangleService.getAdjacencyType(r1, r2));
+        assertEquals(AdjacencyType.PROPER, rectangleService.classifyAdjacency(r1, r2));
     }
 
     @Test
@@ -73,7 +73,7 @@ class RectangleServiceTest {
         Rectangle r1 = new Rectangle(new Point(1, 1), new Point(3, 6));
         Rectangle r2 = new Rectangle(new Point(3, 2), new Point(5, 4));
 
-        assertEquals(AdjacencyType.SUBLINE, rectangleService.getAdjacencyType(r1, r2));
+        assertEquals(AdjacencyType.SUBLINE, rectangleService.classifyAdjacency(r1, r2));
     }
 
     @Test
@@ -81,7 +81,7 @@ class RectangleServiceTest {
         Rectangle r1 = new Rectangle(new Point(1, 1), new Point(3, 5));
         Rectangle r2 = new Rectangle(new Point(3, 4), new Point(5, 8));
 
-        assertEquals(AdjacencyType.PARTIAL, rectangleService.getAdjacencyType(r1, r2));
+        assertEquals(AdjacencyType.PARTIAL, rectangleService.classifyAdjacency(r1, r2));
     }
 
     @Test

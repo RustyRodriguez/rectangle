@@ -8,7 +8,10 @@ import com.ty.result.IntersectionResult;
 import java.util.Collections;
 import java.util.List;
 
-import static com.ty.model.AdjacencyType.*;
+import static com.ty.model.AdjacencyType.NONE;
+import static com.ty.model.AdjacencyType.PARTIAL;
+import static com.ty.model.AdjacencyType.PROPER;
+import static com.ty.model.AdjacencyType.SUBLINE;
 
 public class RectangleService {
 
@@ -26,7 +29,14 @@ public class RectangleService {
                 outer.getTop() >= inner.getTop();
     }
 
-    public AdjacencyType getAdjacencyType(Rectangle r1, Rectangle r2) {
+    /**
+     * Determines whether two rectangles are adjacent and classifies the type of adjacency
+     *
+     * @param r1 first rectangle
+     * @param r2 second rectangle
+     * @return AdjacencyType an enum representing the adjacency classification
+     */
+    public AdjacencyType classifyAdjacency(Rectangle r1, Rectangle r2) {
         boolean vertical = r1.getRight() == r2.getLeft() || r1.getLeft() == r2.getRight();
         boolean horizontal = r1.getTop() == r2.getBottom() || r1.getBottom() == r2.getTop();
 
@@ -34,66 +44,62 @@ public class RectangleService {
             int overlapStart = Math.max(r1.getBottom(), r2.getBottom());
             int overlapEnd = Math.min(r1.getTop(), r2.getTop());
 
-            if (overlapStart >= overlapEnd) {
-                return NONE;
-            }
-
-            int r1Height = r1.getTop() - r1.getBottom();
-            int r2Height = r2.getTop() - r2.getBottom();
-            int overlap = overlapEnd - overlapStart;
-
-            if (r1Height == overlap && r2Height == overlap) {
-                return PROPER;
-            } else if (r1Height == overlap || r2Height == overlap) {
-                return SUBLINE;
-            } else {
-                return PARTIAL;
-            }
+            return classifyOverlap(overlapStart, overlapEnd, r1.height(), r2.height());
         }
 
         if (horizontal) {
             int overlapStart = Math.max(r1.getLeft(), r2.getLeft());
             int overlapEnd = Math.min(r1.getRight(), r2.getRight());
 
-            if (overlapStart >= overlapEnd) {
-                return NONE;
-            }
-
-            int r1Width = r1.getRight() - r1.getLeft();
-            int r2Width = r2.getRight() - r2.getLeft();
-            int overlap = overlapEnd - overlapStart;
-
-            if (r1Width == overlap && r2Width == overlap) {
-                return PROPER;
-            } else if (r1Width == overlap || r2Width == overlap) {
-                return SUBLINE;
-            } else {
-                return PARTIAL;
-            }
+            return classifyOverlap(overlapStart, overlapEnd, r1.width(), r2.width());
         }
 
         return NONE;
     }
 
+    /**
+     * Determines the intersection points between two rectangles, if any
+     *
+     * @param r1 first rectangle
+     * @param r2 second rectangle
+     * @return IntersectionResult contains a boolean depending on if there is an intersection and also
+     * contains a list of points representing the rectangle of intersection
+     */
     public IntersectionResult computeIntersection(Rectangle r1, Rectangle r2) {
-        int overlapLeft = Math.max(r1.getLeft(), r2.getLeft());
-        int overlapRight = Math.min(r1.getRight(), r2.getRight());
-        int overlapBottom = Math.max(r1.getBottom(), r2.getBottom());
-        int overlapTop = Math.min(r1.getTop(), r2.getTop());
+        int left = Math.max(r1.getLeft(), r2.getLeft());
+        int right = Math.min(r1.getRight(), r2.getRight());
+        int bottom = Math.max(r1.getBottom(), r2.getBottom());
+        int top = Math.min(r1.getTop(), r2.getTop());
 
-        int area = (overlapRight - overlapLeft) * (overlapTop - overlapBottom);
+        int width = right - left;
+        int height = top - bottom;
 
-        if (area == 0) {
+        if (width <= 0 || height <= 0) {
             return new IntersectionResult(false, Collections.emptyList());
         }
 
-        List<Point> overlappingPoints = List.of(
-                new Point(overlapLeft, overlapBottom),
-                new Point(overlapRight, overlapBottom),
-                new Point(overlapLeft, overlapTop),
-                new Point(overlapRight, overlapTop)
-        );
+        List<Point> intersectionPoints = createIntersectionPoints(left, right, top, bottom);
 
-        return new IntersectionResult(true, overlappingPoints);
+        return new IntersectionResult(true, intersectionPoints);
+    }
+
+    private List<Point> createIntersectionPoints(int left, int right, int top, int bottom) {
+        return List.of(new Point(left, bottom), new Point(right, bottom), new Point(left, top), new Point(right, top));
+    }
+
+    private AdjacencyType classifyOverlap(int overlapStart, int overlapEnd, int firstLength, int secondLength) {
+        if (overlapStart >= overlapEnd) {
+            return NONE;
+        }
+
+        int overlap = overlapEnd - overlapStart;
+
+        if (firstLength == overlap && secondLength == overlap) {
+            return PROPER;
+        } else if (firstLength == overlap || secondLength == overlap) {
+            return SUBLINE;
+        } else {
+            return PARTIAL;
+        }
     }
 }

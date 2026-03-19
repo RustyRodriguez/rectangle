@@ -34,4 +34,12 @@ public class Rectangle {
     public int getBottom() {
         return bottom;
     }
+
+    public int width() {
+        return right - left;
+    }
+
+    public int height() {
+        return top - bottom;
+    }
 }
