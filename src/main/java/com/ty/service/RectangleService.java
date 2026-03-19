@@ -1,8 +1,12 @@
 package com.ty.service;
 
 import com.ty.model.AdjacencyType;
+import com.ty.model.Point;
 import com.ty.model.Rectangle;
 import com.ty.result.IntersectionResult;
+
+import java.util.Collections;
+import java.util.List;
 
 import static com.ty.model.AdjacencyType.*;
 
@@ -72,6 +76,24 @@ public class RectangleService {
     }
 
     public IntersectionResult computeIntersection(Rectangle r1, Rectangle r2) {
-        return null;
+        int overlapLeft = Math.max(r1.getLeft(), r2.getLeft());
+        int overlapRight = Math.min(r1.getRight(), r2.getRight());
+        int overlapBottom = Math.max(r1.getBottom(), r2.getBottom());
+        int overlapTop = Math.min(r1.getTop(), r2.getTop());
+
+        int area = (overlapRight - overlapLeft) * (overlapTop - overlapBottom);
+
+        if (area == 0) {
+            return new IntersectionResult(false, Collections.emptyList());
+        }
+
+        List<Point> overlappingPoints = List.of(
+                new Point(overlapLeft, overlapBottom),
+                new Point(overlapRight, overlapBottom),
+                new Point(overlapLeft, overlapTop),
+                new Point(overlapRight, overlapTop)
+        );
+
+        return new IntersectionResult(true, overlappingPoints);
     }
 }
