@@ -58,12 +58,14 @@ public class RectangleService {
     }
 
     /**
-     * Determines the intersection points between two rectangles, if any
+     * Determines the intersection region between two rectangles, if any.
+     * Intersection is defined as the overlapping area. The four returned points
+     * are the corners of that overlap region.
      *
      * @param r1 first rectangle
      * @param r2 second rectangle
-     * @return IntersectionResult contains a boolean depending on if there is an intersection and also
-     * contains a list of points representing the rectangle of intersection
+     * @return IntersectionResult containing a boolean indicating overlap and the
+     *         four corner points of the overlapping region
      */
     public IntersectionResult computeIntersection(Rectangle r1, Rectangle r2) {
         int left = Math.max(r1.getLeft(), r2.getLeft());

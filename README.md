@@ -18,7 +18,7 @@ A Java application that analyzes relationships between rectangles, including con
 - Rectangles are defined by two points with non-zero width and height
 - Containment is inclusive (identical rectangles are considered contained)
 - Adjacency requires a shared boundary with positive length
-- Intersection is defined as overlapping area only (shared edges or points are not considered intersections)
+- Intersection is defined as the overlapping area between two rectangles. The four returned points are the corners of that overlap region. Shared edges or corners alone are not considered intersections.
 
 ## Run Tests
 
