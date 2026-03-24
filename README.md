@@ -7,6 +7,23 @@ A Java application that analyzes relationships between rectangles, including con
 - Java 21
 - Maven 3.9+ (or use the maven wrapper)
 
+### Installing Java 21 on Ubuntu
+
+```bash
+sudo apt update
+sudo apt install -y openjdk-21-jdk
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+```
+
+To persist `JAVA_HOME` across sessions:
+
+```bash
+echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
+source ~/.bashrc
+```
+
+> Note: The path to the JDK will vary from architecture to architecture
+
 ## Features
 
 - Determine whether one rectangle contains another
@@ -20,6 +37,9 @@ A Java application that analyzes relationships between rectangles, including con
 - Adjacency requires a shared boundary with positive length
 - Intersection is defined as the overlapping area between two rectangles. The four returned points are the corners of that overlap region. Shared edges or corners alone are not considered intersections.
 
+The following image depicts a rectangle defined by two points (1, 1) and (3, 4)
+
+![rectangle_definition.png](rectangle_definition.png)
 ## Run Tests
 
 ```bash
@@ -30,6 +50,13 @@ A Java application that analyzes relationships between rectangles, including con
 
 ```bash
 ./mvnw package
+```
+
+## Run
+
+```bash
+./mvnw package -DskipTests
+java -cp target/rectangle-1.0-SNAPSHOT.jar com.ty.Main
 ```
 
 ## Code Coverage
