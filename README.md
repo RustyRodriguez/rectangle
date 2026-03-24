@@ -59,6 +59,15 @@ The following image depicts a rectangle defined by two points (1, 1) and (3, 4)
 java -cp target/rectangle-1.0-SNAPSHOT.jar com.ty.Main
 ```
 
+## Docker
+
+Build and run using Docker:
+
+```bash
+docker build -t rectangle .
+docker run rectangle
+```
+
 ## Code Coverage
 
 Run tests and generate a Jacoco coverage report
