@@ -31,3 +31,28 @@ A Java application that analyzes relationships between rectangles, including con
 ```bash
 ./mvnw package
 ```
+
+## Code Coverage
+
+Run tests and generate a Jacoco coverage report
+
+```bash
+./mvnw test
+```
+
+Open the report in a browser at the following location
+
+```
+target/site/jacoco/index.html
+```
+
+## Visual Examples of Adjacency, Containment, Intersection
+
+### Adjacency (Proper)
+![adjacency_proper.png](adjacency_proper.png)
+
+### Containment
+![containment.png](containment.png)
+
+### Intersection
+![intersection.png](intersection.png)
