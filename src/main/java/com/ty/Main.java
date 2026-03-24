@@ -4,12 +4,12 @@ import com.ty.model.AdjacencyType;
 import com.ty.model.Point;
 import com.ty.model.Rectangle;
 import com.ty.result.IntersectionResult;
-import com.ty.service.RectangleService;
+import com.ty.service.RectangleAnalyzerService;
 
 public class Main {
 
     public static void main(String[] args) {
-        RectangleService service = new RectangleService();
+        RectangleAnalyzerService service = new RectangleAnalyzerService();
         
         Rectangle i1 = new Rectangle(new Point(1, 1), new Point(4, 4));
         Rectangle i2 = new Rectangle(new Point(3, 2), new Point(6, 5));

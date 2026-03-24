@@ -13,7 +13,7 @@ import static com.ty.model.AdjacencyType.PARTIAL;
 import static com.ty.model.AdjacencyType.PROPER;
 import static com.ty.model.AdjacencyType.SUBLINE;
 
-public class RectangleService {
+public class RectangleAnalyzerService {
 
     /**
      * Determines whether the outer rectangle contains the inner rectangle
