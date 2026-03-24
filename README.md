@@ -39,7 +39,7 @@ source ~/.bashrc
 
 The following image depicts a rectangle defined by two points (1, 1) and (3, 4)
 
-![rectangle_definition.png](rectangle_definition.png)
+![rectangle_definition.png](images/rectangle_definition.png)
 ## Run Tests
 
 ```bash
@@ -85,10 +85,10 @@ target/site/jacoco/index.html
 ## Visual Examples of Adjacency, Containment, Intersection
 
 ### Adjacency (Proper)
-![adjacency_proper.png](adjacency_proper.png)
+![adjacency_proper.png](images/adjacency_proper.png)
 
 ### Containment
-![containment.png](containment.png)
+![containment.png](images/containment.png)
 
 ### Intersection
-![intersection.png](intersection.png)
+![intersection.png](images/intersection.png)
